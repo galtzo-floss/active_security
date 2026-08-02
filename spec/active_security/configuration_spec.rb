@@ -7,6 +7,7 @@ RSpec.describe ActiveSecurity::Configuration do
     let(:ar_with_active_security) do
       AnonymousActiveRecord.generate(columns: ["name"]) do
         include ActiveSecurity # rubocop:disable RSpec/DescribedClass
+
         active_security use: 1
       end
     end
@@ -24,13 +25,14 @@ RSpec.describe ActiveSecurity::Configuration do
     before do
       ar_with_active_security.create(
         id: 1,
-        name: "Starch",
+        name: "Starch"
       )
     end
 
     let(:ar_with_active_security) do
       AnonymousActiveRecord.generate(columns: ["name"]) do
         include ActiveSecurity # rubocop:disable RSpec/DescribedClass
+
         active_security use: {privileged: {}, finders: {default_finders: :restricted}, scoped: {scope: :name}}
       end
     end
@@ -40,7 +42,7 @@ RSpec.describe ActiveSecurity::Configuration do
     end
 
     it "sets model_class" do
-      expect(ar_with_active_security.active_security_config.model_class.to_s).to match(/Anon/)
+      expect(ar_with_active_security.active_security_config.model_class.to_s).to include("Anon")
     end
   end
 end

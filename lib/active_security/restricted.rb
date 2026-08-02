@@ -63,7 +63,7 @@ module ActiveSecurity
         # of the problem - in Rails - because it would benefit more people.
         all.extending(
           active_security_config.finder_methods,
-          active_security_config.restricted_hooks,
+          active_security_config.restricted_hooks
         )
       end
     end

@@ -4,7 +4,7 @@ RSpec.describe ActiveSecurity::Privileged do
   before do
     ar_with_active_security.create(
       id: 1,
-      name: "Starch",
+      name: "Starch"
     )
   end
 
@@ -12,6 +12,7 @@ RSpec.describe ActiveSecurity::Privileged do
     let(:ar_with_active_security) do
       AnonymousActiveRecord.generate(columns: ["name"]) do
         include ActiveSecurity # rubocop:disable RSpec/DescribedClass
+
         active_security use: :privileged
       end
     end
@@ -129,6 +130,7 @@ RSpec.describe ActiveSecurity::Privileged do
     let(:ar_with_active_security) do
       AnonymousActiveRecord.generate(columns: ["name"]) do
         include ActiveSecurity # rubocop:disable RSpec/DescribedClass
+
         active_security use: [:finders, :privileged], default_finders: :privileged
       end
     end

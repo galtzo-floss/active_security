@@ -4,7 +4,7 @@ RSpec.describe ActiveSecurity::Restricted do
   before do
     ar_with_active_security.create(
       id: 1,
-      name: "Starch",
+      name: "Starch"
     )
   end
 
@@ -12,6 +12,7 @@ RSpec.describe ActiveSecurity::Restricted do
     let(:ar_with_active_security) do
       AnonymousActiveRecord.generate(columns: ["name"]) do
         include ActiveSecurity # rubocop:disable RSpec/DescribedClass
+
         active_security use: :restricted
       end
     end
@@ -135,6 +136,7 @@ RSpec.describe ActiveSecurity::Restricted do
     let(:ar_with_active_security) do
       AnonymousActiveRecord.generate(columns: ["name"]) do
         include ActiveSecurity # rubocop:disable RSpec/DescribedClass
+
         active_security use: [:finders, :restricted], default_finders: :restricted
       end
     end

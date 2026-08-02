@@ -24,7 +24,7 @@ RSpec.describe ActiveSecurity do
     let(:records_array) do
       AnonymousActiveRecord.factory(
         columns: ["name"],
-        source_data: [{id: 1, name: "Starch"}],
+        source_data: [{id: 1, name: "Starch"}]
       ) do
         include ActiveSecurity # rubocop:disable RSpec/DescribedClass
       end

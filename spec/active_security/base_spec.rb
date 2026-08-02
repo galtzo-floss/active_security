@@ -5,13 +5,14 @@ RSpec.describe ActiveSecurity::Base do
     before do
       ar_with_active_security.create(
         id: 1,
-        name: "Starch",
+        name: "Starch"
       )
     end
 
     let(:ar_with_active_security) do
       AnonymousActiveRecord.generate(columns: ["name"]) do
         include ActiveSecurity # rubocop:disable RSpec/DescribedClass
+
         active_security
       end
     end
@@ -66,13 +67,14 @@ RSpec.describe ActiveSecurity::Base do
       end
       ar_with_active_security.create(
         id: 1,
-        name: "Starch",
+        name: "Starch"
       )
     end
 
     let(:ar_with_active_security) do
       AnonymousActiveRecord.generate(columns: ["name"]) do
         include ActiveSecurity # rubocop:disable RSpec/DescribedClass
+
         active_security
       end
     end
@@ -127,13 +129,14 @@ RSpec.describe ActiveSecurity::Base do
       end
       ar_with_active_security.create(
         id: 1,
-        name: "Starch",
+        name: "Starch"
       )
     end
 
     let(:ar_with_active_security) do
       AnonymousActiveRecord.generate(columns: ["name"]) do
         include ActiveSecurity # rubocop:disable RSpec/DescribedClass
+
         active_security use: {scoped: {scope: :name}} do |config|
           config.logger = Logger.new($stdout)
         end
@@ -193,7 +196,7 @@ RSpec.describe ActiveSecurity::Base do
 
       it "does not log" do
         output = capture(:stdout) { query_scope }
-        expect(output).not_to match(/secure scope/)
+        expect(output).not_to include("secure scope")
       end
 
       context "when not found" do
@@ -213,7 +216,7 @@ RSpec.describe ActiveSecurity::Base do
               nil
             end
           }
-          expect(output).not_to match(/secure scope/)
+          expect(output).not_to include("secure scope")
         end
       end
     end

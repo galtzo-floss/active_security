@@ -4,13 +4,14 @@ RSpec.describe ActiveSecurity::FinderMethods do
   before do
     ar_with_active_security.create(
       id: 1,
-      name: "Starch",
+      name: "Starch"
     )
   end
 
   let(:ar_with_active_security) do
     AnonymousActiveRecord.generate(columns: ["name"]) do
       include ActiveSecurity # rubocop:disable RSpec/DescribedClass
+
       active_security use: {finders: {default_finders: :restricted}, scoped: {scope: :name}}
     end
   end

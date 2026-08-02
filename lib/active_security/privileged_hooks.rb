@@ -3,7 +3,7 @@ module ActiveSecurity
     extend ActiveSupport::Concern
 
     def _active_security_not_scoped_handler
-      active_security_config.logger.warn("[Privileged] #{_active_security_name_for} does not have secure scope: #{respond_to?(:to_sql) ? to_sql : ""}")
+      active_security_config.logger.warn("[Privileged] #{_active_security_name_for} does not have secure scope: #{to_sql if respond_to?(:to_sql)}")
     end
 
     def _active_security_unhandled_predicate(predicate)

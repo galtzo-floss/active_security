@@ -4,7 +4,7 @@ RSpec.describe ActiveSecurity::RestrictedHooks do
   before do
     ar_with_active_security.create(
       id: 1,
-      name: "Starch",
+      name: "Starch"
     )
   end
 
@@ -12,6 +12,7 @@ RSpec.describe ActiveSecurity::RestrictedHooks do
     let(:ar_with_active_security) do
       AnonymousActiveRecord.generate(columns: ["name"]) do
         include ActiveSecurity # rubocop:disable RSpec/DescribedClass
+
         active_security use: :restricted
       end
     end
@@ -136,6 +137,7 @@ RSpec.describe ActiveSecurity::RestrictedHooks do
       let(:ar_with_active_security) do
         AnonymousActiveRecord.generate(columns: ["name"]) do
           include ActiveSecurity # rubocop:disable RSpec/DescribedClass
+
           active_security use: :restricted, on_restricted_no_scope: ->(config) {
             config.logger.error("Donuts are not allowed")
             raise "Shirley Temple"
@@ -262,6 +264,7 @@ RSpec.describe ActiveSecurity::RestrictedHooks do
       let(:ar_with_active_security) do
         AnonymousActiveRecord.generate(columns: ["name"]) do
           include ActiveSecurity # rubocop:disable RSpec/DescribedClass
+
           active_security use: :restricted, on_restricted_no_scope: :log
         end
       end
@@ -385,6 +388,7 @@ RSpec.describe ActiveSecurity::RestrictedHooks do
       let(:ar_with_active_security) do
         AnonymousActiveRecord.generate(columns: ["name"]) do
           include ActiveSecurity # rubocop:disable RSpec/DescribedClass
+
           active_security use: :restricted, on_restricted_no_scope: :raise
         end
       end
@@ -508,6 +512,7 @@ RSpec.describe ActiveSecurity::RestrictedHooks do
       let(:ar_with_active_security) do
         AnonymousActiveRecord.generate(columns: ["name"]) do
           include ActiveSecurity # rubocop:disable RSpec/DescribedClass
+
           active_security use: :restricted, on_restricted_no_scope: :log_and_raise
         end
       end
@@ -635,6 +640,7 @@ RSpec.describe ActiveSecurity::RestrictedHooks do
       let(:ar_with_active_security) do
         AnonymousActiveRecord.generate(columns: ["name"]) do
           include ActiveSecurity # rubocop:disable RSpec/DescribedClass
+
           active_security use: :restricted, on_restricted_no_scope: :bartles
         end
       end
@@ -649,6 +655,7 @@ RSpec.describe ActiveSecurity::RestrictedHooks do
     let(:ar_with_active_security) do
       AnonymousActiveRecord.generate(columns: ["name"]) do
         include ActiveSecurity # rubocop:disable RSpec/DescribedClass
+
         active_security use: [:finders, :restricted], default_finders: :restricted
       end
     end

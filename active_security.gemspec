@@ -1,82 +1,174 @@
 # frozen_string_literal: true
 
-# Get the GEMFILE_VERSION without *require* "my_gem/version", for code coverage accuracy
-# See: https://github.com/simplecov-ruby/simplecov/issues/557#issuecomment-825171399
-load "lib/active_security/version.rb"
-gem_version = ActiveSecurity::Version::VERSION
-ActiveSecurity::Version.send(:remove_const, :VERSION)
+# kettle-jem:freeze
+# To retain chunks of comments & code during kettle-jem templating:
+# Wrap custom sections with freeze markers (e.g., as above and below this comment chunk).
+# kettle-jem will then preserve content between those markers across template runs.
+# kettle-jem:unfreeze
+
+gem_version =
+  if Gem.ruby_version >= Gem::Version.new("3.1")
+    # Loading Version into an anonymous module allows version.rb to get code coverage from SimpleCov!
+    # See: https://github.com/simplecov-ruby/simplecov/issues/557#issuecomment-2630782358
+    # See: https://github.com/panorama-ed/memo_wise/pull/397
+    Module.new.tap { |mod| Kernel.load("#{__dir__}/lib/active_security/version.rb", mod) }::ActiveSecurity::Version::VERSION
+  else
+    require_relative "lib/active_security/version"
+    ActiveSecurity::Version::VERSION
+  end
 
 Gem::Specification.new do |spec|
   spec.name = "active_security"
   spec.version = gem_version
-
-  # See CONTRIBUTING.md
-  spec.cert_chain = ["certs/pboling.pem"]
-  spec.signing_key = File.expand_path("~/.ssh/gem-private_key.pem") if $PROGRAM_NAME.end_with?("gem")
-
   spec.authors = ["Peter Boling"]
-  spec.email = ["peter.boling@gmail.com"]
+  spec.email = ["floss@galtzo.com"]
 
-  spec.summary = "Prevent insecure, unscoped, finds"
-  spec.description = "Disallow insecure, unscoped, finds"
-  spec.homepage = "https://github.com/pboling/#{spec.name}"
-  spec.license = "MIT"
+  spec.summary = "💎 Prevent insecure, unscoped, finds"
+  spec.description = "💎 Disallow insecure, unscoped, finds"
+  spec.homepage = "https://github.com/galtzo-floss/active_security"
+  spec.licenses = ["MIT"]
   spec.required_ruby_version = ">= 2.7.0"
 
-  spec.metadata["homepage_uri"] = spec.homepage
+  # Linux distros often package gems and securely certify them independent
+  #   of the official RubyGem certification process. Allowed via ENV["SKIP_GEM_SIGNING"]
+  # Ref: https://gitlab.com/ruby-oauth/version_gem/-/issues/3
+  # Hence, only enable signing if `SKIP_GEM_SIGNING` is not set in ENV.
+  # See CONTRIBUTING.md
+  unless ENV.include?("SKIP_GEM_SIGNING")
+    user_cert = "certs/#{ENV.fetch("GEM_CERT_USER", ENV["USER"])}.pem"
+    cert_file_path = File.join(__dir__, user_cert)
+    cert_chain = cert_file_path.split(",")
+    cert_chain.select! { |fp| File.exist?(fp) }
+    if cert_file_path && cert_chain.any?
+      spec.cert_chain = cert_chain
+      if $PROGRAM_NAME.end_with?("gem") && ARGV[0] == "build"
+        spec.signing_key = File.join(Gem.user_home, ".ssh", "gem-private_key.pem")
+      end
+    end
+  end
+
+  spec.metadata["homepage_uri"] = "https://github.com/pboling/active_security"
   spec.metadata["source_code_uri"] = "#{spec.homepage}/tree/v#{spec.version}"
   spec.metadata["changelog_uri"] = "#{spec.homepage}/blob/v#{spec.version}/CHANGELOG.md"
   spec.metadata["bug_tracker_uri"] = "#{spec.homepage}/issues"
   spec.metadata["documentation_uri"] = "https://www.rubydoc.info/gems/#{spec.name}/#{spec.version}"
+  spec.metadata["funding_uri"] = "https://github.com/sponsors/pboling"
   spec.metadata["wiki_uri"] = "#{spec.homepage}/wiki"
-  spec.metadata["funding_uri"] = "https://liberapay.com/pboling"
+  spec.metadata["news_uri"] = "https://www.railsbling.com/tags/#{spec.name}"
+  spec.metadata["discord_uri"] = "https://discord.gg/3qme4XHNKN"
+  spec.metadata["mailing_list_uri"] = "https://www.rubyforum.org/tag/galtzo-floss"
   spec.metadata["rubygems_mfa_required"] = "true"
 
-  # Specify which files should be added to the gem when it is released.
-  spec.files = Dir[
-    "lib/**/*.rb",
-    "CODE_OF_CONDUCT.md",
-    "CHANGELOG.md",
-    "CONTRIBUTING.md",
-    "LICENSE.txt",
+  gemspec_root = __dir__
+  relative_package_path = lambda do |path|
+    path.delete_prefix("#{gemspec_root}/")
+  end
+  enumerate_package_glob = lambda do |glob|
+    Dir.glob(glob, File::FNM_DOTMATCH).filter_map do |path|
+      next unless File.file?(path) && ![".", ".."].include?(File.basename(path))
+
+      relative_package_path.call(path)
+    end
+  end
+  enumerate_package_files = lambda do |root|
+    enumerate_package_glob.call(File.join(gemspec_root, root, "**", "*"))
+  end
+  package_metadata_files = %w[
+    CHANGELOG.md
+    LICENSE.md
+    README.md
+    sig/active_security.rbs
+  ].select { |path| File.exist?(File.join(gemspec_root, path)) }
+
+  # Specify which files are part of the released package.
+  spec.files = [
+    # Root package metadata
+    *package_metadata_files,
+    # Code / tasks / data (NOTE: exe/ is specified via spec.bindir and spec.executables below)
+    *enumerate_package_files.call("lib"),
+    # Executables and executable support scripts
+    *enumerate_package_files.call("exe"),
+    *enumerate_package_glob.call(File.join(gemspec_root, "LICENSE.txt"))
+  ]
+  spec.rdoc_options += [
+    "--title",
+    "#{spec.name} - #{spec.summary}",
+    "--main",
     "README.md",
-    "SECURITY.md"
+    "--exclude",
+    "^sig/",
+    "--line-numbers",
+    "--inline-source",
+    "--quiet"
   ]
   spec.bindir = "exe"
+  # Listed files are the relative paths from bindir above.
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  # Uncomment to register a new dependency of your gem
-  # spec.add_dependency "example-gem", "~> 1.0"
-
-  # For more information and examples about making a new gem, check out our
-  # guide at: https://bundler.io/guides/creating_gem.html
-
+  # Utilities
   spec.add_dependency("activerecord", ">= 7.0")
   spec.add_dependency("activesupport", ">= 7.0")
-  spec.add_dependency("version_gem", "~> 1.1", ">= 1.1.4")
+  spec.add_dependency("version_gem", "~> 1.1", ">= 1.1.15")              # ruby >= 2.2.0
 
-  # Development Dependencies
-  spec.add_development_dependency("rake", ">= 13")
+  # NOTE: It is preferable to list development dependencies in the gemspec due to increased
+  #       visibility and discoverability.
+  #       However, development dependencies in gemspec will install on
+  #       all versions of Ruby that will run in CI.
+  #       This gem, and its gemspec runtime dependencies, will install on Ruby down to 2.7.0.
+  #       This gem, and its gemspec development dependencies, will install on Ruby down to 2.7.0.
+  #       Thus, dev dependencies in gemspec must have
+  #
+  #       required_ruby_version ">= 2.7.0" (or lower)
+  #
+  #       Development dependencies that require strictly newer Ruby versions should be in a "gemfile",
+  #       and preferably a modular one (see gemfiles/modular/*.gemfile).
+
+  # Dev, Test, & Release Tasks
+  spec.add_development_dependency("kettle-dev", "~> 2.5", ">= 2.5.16")             # ruby >= 2.7.0
+
+  # Security
+  spec.add_development_dependency("bundler-audit", "~> 0.9.3")                      # ruby >= 2.0.0
+
+  # Tasks
+  spec.add_development_dependency("rake", "~> 13.0")                                # ruby >= 2.2.0
+
+  # Debugging
+  spec.add_development_dependency("require_bench", "~> 1.0", ">= 1.0.4")            # ruby >= 2.2.0
 
   # Testing
+  # Loads version files in anonymous namespaces for coverage without constant redefinition warnings.
+  spec.add_development_dependency("anonymous_loader", "~> 0.1", ">= 0.1.3")         # ruby >= 2.2.0
+  spec.add_development_dependency("appraisal2", "~> 3.2", ">= 3.2.0")               # ruby >= 1.8.7, for testing against multiple versions of dependencies
+  spec.add_development_dependency("kettle-test", "~> 2.0", ">= 2.0.18")            # ruby >= 2.7.0
+  spec.add_development_dependency("turbo_tests2", "~> 3.2", ">= 3.2.4")           # ruby >= 2.4.0, default kettle-test runner
+
+  # Releasing
+  spec.add_development_dependency("ruby-progressbar", "~> 1.13")                    # ruby >= 0
+  spec.add_development_dependency("stone_checksums", "~> 1.0", ">= 1.0.8")          # ruby >= 2.2.0
+
+  # Development tasks
+  # The cake is a lie. erb v2.2, the oldest release, was never compatible with Ruby 2.3.
+  # This means we have no choice but to use the erb that shipped with Ruby 2.3
+  # /opt/hostedtoolcache/Ruby/2.3.8/x64/lib/ruby/gems/2.3.0/gems/erb-2.2.2/lib/erb.rb:670:in `prepare_trim_mode': undefined method `match?' for "-":String (NoMethodError)
+  # spec.add_development_dependency("erb", ">= 2.2")                                  # ruby >= 2.3.0, not SemVer, old rubies get dropped in a patch.
+  spec.add_development_dependency("gitmoji-regex", "~> 2.0", ">= 2.0.11")            # ruby >= 2.4
+
+  # HTTP recording for deterministic specs
+  # In Ruby 3.5 (HEAD) the CGI library has been pared down, so we also need to depend on gem "cgi" for ruby@head
+  # This is done in the "head" appraisal.
+  # See: https://github.com/vcr/vcr/issues/1057
+  # spec.add_development_dependency("vcr", ">= 4")                        # 6.0 claims to support ruby >= 2.3, but fails on ruby 2.4
+  # spec.add_development_dependency("webmock", ">= 3")                    # Last version to support ruby >= 2.3
   spec.add_development_dependency("anonymous_active_record", "~> 1.0", ">= 1.0.8")
   spec.add_development_dependency("appraisal", "~> 2.5")
   spec.add_development_dependency("rspec", ">= 3")
   spec.add_development_dependency("rspec-block_is_expected", "~> 1.0", ">= 1.0.5")
   spec.add_development_dependency("rspec-pending_for", "~> 0.1", ">= 0.1.16")
-  spec.add_development_dependency("silent_stream", "~> 1.0", ">= 1.0.8")
-  spec.add_development_dependency("sqlite3", ">= 1.6.9", "< 2")
-
-  # Coverage
-  spec.add_development_dependency("kettle-soup-cover", "~> 1.0", ">= 1.0.2")
-
-  # Linting
   spec.add_development_dependency("rubocop-lts", "~> 18.2", ">= 18.2.1") # Linting for Ruby >= 2.7
   spec.add_development_dependency("rubocop-packaging", "~> 0.5", ">= 0.5.2")
-  spec.add_development_dependency("rubocop-rspec", "~> 2.10")
-
-  # Documentation
+  spec.add_development_dependency("silent_stream", "~> 1.0", ">= 1.0.8")
+  spec.add_development_dependency("sqlite3", ">= 1.6.9", "< 2")
   spec.add_development_dependency("yard", "~> 0.9", ">= 0.9.34")
   spec.add_development_dependency("yard-junk", "~> 0.0")
 end

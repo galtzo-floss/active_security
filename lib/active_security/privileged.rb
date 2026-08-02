@@ -31,7 +31,7 @@ module ActiveSecurity
       def privileged
         all.extending(
           active_security_config.finder_methods,
-          active_security_config.privileged_hooks,
+          active_security_config.privileged_hooks
         )
       end
     end

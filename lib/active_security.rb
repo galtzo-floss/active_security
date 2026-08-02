@@ -52,6 +52,7 @@ module ActiveSecurity
       end
       model_class.class_eval do
         extend(Base)
+
         @active_security_config = Class.new(Configuration).new(self) # rubocop:disable ThreadSafety/InstanceVariableInClassMethod
         ActiveSecurity.defaults.call(@active_security_config) # rubocop:disable ThreadSafety/InstanceVariableInClassMethod
       end

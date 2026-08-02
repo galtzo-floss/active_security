@@ -12,7 +12,7 @@ module ActiveSecurity
       end
 
       if /log/.match?(active_security_config.on_restricted_no_scope)
-        active_security_config.logger.error("#{_active_security_name_for} does not have secure scope: #{respond_to?(:to_sql) ? to_sql : ""}")
+        active_security_config.logger.error("#{_active_security_name_for} does not have secure scope: #{to_sql if respond_to?(:to_sql)}")
       end
 
       if /raise/.match?(active_security_config.on_restricted_no_scope)
@@ -33,7 +33,7 @@ module ActiveSecurity
 
       if /raise/.match?(active_security_config.on_restricted_unhandled_predicate)
         raise UnhandledArelPredicateError.new(
-          "#{_active_security_name_for} predicate type #{predicate.class.name} is unhandled; See: https://www.rubydoc.info/github/rails/rails/Arel/Nodes",
+          "#{_active_security_name_for} predicate type #{predicate.class.name} is unhandled; See: https://www.rubydoc.info/github/rails/rails/Arel/Nodes"
         )
       end
     end

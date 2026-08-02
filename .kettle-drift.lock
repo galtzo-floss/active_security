@@ -1,0 +1,38 @@
+{
+  "#   - Ruby 2.7\n#   - Ruby 3.0": [
+    {
+      "file": "Appraisals",
+      "lines": [
+        122,
+        132
+      ]
+    }
+  ],
+  "#   - Ruby 3.0\n#   - Ruby 3.1": [
+    {
+      "file": "Appraisals",
+      "lines": [
+        123,
+        133
+      ]
+    }
+  ],
+  "# Compat: Ruby >= 2.7\n# Test Matrix:": [
+    {
+      "file": "Appraisals",
+      "lines": [
+        120,
+        130
+      ]
+    }
+  ],
+  "# Test Matrix:\n#   - Ruby 2.7": [
+    {
+      "file": "Appraisals",
+      "lines": [
+        121,
+        131
+      ]
+    }
+  ]
+}
