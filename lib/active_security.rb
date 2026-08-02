@@ -6,12 +6,12 @@ require "active_record"
 require "active_support"
 
 # This library
-require_relative "active_security/version"
 require_relative "active_security/base"
 require_relative "active_security/configuration"
 require_relative "active_security/finder_methods"
 require_relative "active_security/privileged_hooks"
 require_relative "active_security/restricted_hooks"
+require_relative "active_security/version"
 
 module ActiveSecurity
   class RestrictedAccessError < RuntimeError; end

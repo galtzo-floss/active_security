@@ -3,7 +3,7 @@
     [251, 3, 16, "Rake/DuplicateTask: Task `test` is defined at both Rakefile:244 and Rakefile:251.", 850263259],
     [254, 3, 16, "Rake/DuplicateTask: Task `spec` is defined at both Rakefile:230 and Rakefile:254.", 2494909563]
   ],
-  "lib/active_security.rb:879677311": [
+  "lib/active_security.rb:2323899519": [
     [56, 9, 23, "ThreadSafety/ClassInstanceVariable: Avoid class instance variables.", 4122870069],
     [57, 38, 23, "ThreadSafety/ClassInstanceVariable: Avoid class instance variables.", 4122870069],
     [76, 7, 9, "ThreadSafety/ClassInstanceVariable: Avoid class instance variables.", 3608934621],
