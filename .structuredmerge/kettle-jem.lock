@@ -4,8 +4,8 @@ template_state:
   version: 7.1.0
   applied_at: '2026-08-02'
   changelog_replay:
-    last_entry_key: kettle-jem-template-20260801-004
-    last_entry_date: '2026-08-01'
+    last_entry_key: kettle-jem-template-20260802-001
+    last_entry_date: '2026-08-02'
   checksums:
     ".aiignore.example": 48a5dfdd93afd1a15fdce39cc28ca9920263f00018b0968ab031fa744521e5ce
     ".config/mise/env.sh": aeea5a2ab489ba6e5467ae8de6e386ec8c8fe4ff31a044e69d0cd6a092dd6654
@@ -85,7 +85,7 @@ template_state:
     Appraisals.example: 9cb1abcfb1a0bd6d859ca0705efb874dbe546754c8c71f9f95025ff6817f1471
     Big-Time-Public-License.md.example: b0c02a112c9eee0ed69f05fd8f22277a2f8bc62d447b6cb75d6df560e05bf431
     CHANGELOG.md.example: 73459e50dad34d84db88844c993d975097557bdf5229e101b0d1339de6f98ffc
-    CHANGELOG.transfer.md: 2704de5475427104da3705945fc0b0b28c970f44e66581834c460fcc69e84341
+    CHANGELOG.transfer.md: 21331d8a9e58b4ff6e088b88eb408bcccb0f2f64e78f8f4d42ac3f11a24baad8
     CITATION.cff.example: e404ea0a7919d78a83d53d80e211d17b9663576aa606583b709795dc023fd75c
     CODE_OF_CONDUCT.md.example: f1ad532f1860f73ef774c6b27a26d41f4bc1cb8813034f5957487766ebb0986b
     CONTRIBUTING.md.example: b8702655a5f66200bcb92dd7b68d8d3bab742e4ac359c54c25c83eae88f22513
@@ -622,20 +622,20 @@ files:
     recipe: template_source_application_Appraisal_root_gemfile
     action: write
     dest_sha256: 8724e3f6faea995be655ac49369bec64a70710112b1f65707fa38f1fd2fd3254
-    input_fingerprint: 2e461c138ecfd65e52e4c45a428e7dfb80d415a44ef4e688f2974df896ea65f7
+    input_fingerprint: 36e682eb8c2148f207a465cc4ea9cbfab2472c08e1e729e32bf57540c3b7eac5
     template_sources:
     - Appraisal.root.gemfile.example
   Appraisals:
     recipe: template_source_application_Appraisals
     action: write
-    dest_sha256: 4b8d78dd2f7e678090af548ec87d69c97746af8a53e705361305f3cabe9aed45
-    input_fingerprint: bf53ff2b22dd48fc4df3d0e7345a17bc91079388a755c371c3826c80ebeeba0f
+    dest_sha256: 51c6001d2b9d790acb1170944b58bea7afe3fe20aa7c399517d20a372ca0d276
+    input_fingerprint: 0e46ffa7df58fa0ffe8004ea424f53d550168545dc124666c3abd48b5b3c620d
     template_sources:
     - Appraisals.example
   CHANGELOG.md:
     recipe: template_source_application_CHANGELOG_md
     action: write
-    dest_sha256: 78a53981612bee88d814f8db5a737faab8234d8ccad075bf96a80b2331926095
+    dest_sha256: 38a6a748594e74b46e5aea0ccb111acddda393b1af2e82da2a817e85d2e89a69
     input_fingerprint: 4d13427787f4aaa00dc7049abce803e845bfda0e2ae88a00734a0b084a20fb5f
     template_sources:
     - CHANGELOG.md.example
@@ -702,12 +702,6 @@ files:
     input_fingerprint: d3afc998fe80dd712fb8eb8b4e8208196e6b54b72cde04d45f3e72dff4db52ec
     template_sources:
     - README.md.example
-  REEK:
-    recipe: template_source_application_REEK
-    action: write
-    input_fingerprint: 592e232053f52be9ff1f245fda2ba47dcf25ed4c19f5851c8f95ce74cfefd99c
-    template_sources:
-    - REEK
   RUBOCOP.md:
     recipe: template_source_application_RUBOCOP_md
     action: write
