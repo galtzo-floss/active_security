@@ -4,6 +4,8 @@
 # To retain chunks of comments & code during kettle-jem templating:
 # Wrap custom sections with freeze markers (e.g., as above and below this comment chunk).
 # kettle-jem will then preserve content between those markers across template runs.
+# Keep the default development bundle on the Rails 7.1/SQLite 1.x test matrix.
+gem "activerecord", "~> 7.1.3.2"
 # kettle-jem:unfreeze
 
 source "https://gem.coop"
