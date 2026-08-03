@@ -1,4 +1,5 @@
 require "anonymous_loader"
+require "active_security"
 RSpec.describe ActiveSecurity::Version do
   it_behaves_like "a Version module", described_class
 
