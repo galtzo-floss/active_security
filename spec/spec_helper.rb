@@ -6,7 +6,7 @@ require "anonymous_active_record"
 require "silent_stream"
 
 # RSpec Configs
-require "debug"
+require "debug" if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("2.7")
 require "config/active_record"
 require "config/rspec/reset_defaults"
 require "config/rspec/rspec_block_is_expected"
