@@ -21,6 +21,10 @@ I've summarized my thoughts in [this blog post](https://dev.to/galtzo/hostile-ta
 
 ## 🌻 Synopsis <a href="https://discord.gg/3qme4XHNKN"><img alt="Galtzo FLOSS Logo by Aboling0, CC BY-SA 4.0" src="https://logos.galtzo.com/assets/images/galtzo-floss/avatar-128px.svg" width="8%" align="right"/></a> <a href="https://ruby-toolbox.com"><img alt="ruby-lang Logo, Yukihiro Matsumoto, Ruby Visual Identity Team, CC BY-SA 2.5" src="https://logos.galtzo.com/assets/images/ruby-lang/avatar-128px.svg" width="8%" align="right"/></a>
 
+ActiveSecurity extends ActiveRecord models with configurable protections against
+unscoped finds and unhandled query predicates. It can also enforce that records
+are reached through an owning scope, such as a tenant or account association.
+
 ## 💡 Info you can shake a stick at
 
 | Tokens to Remember | [![Gem name][⛳️name-img]][⛳️gem-name] [![Gem namespace][⛳️namespace-img]][⛳️gem-namespace] |
@@ -119,7 +123,38 @@ gem install active_security
 
 ## ⚙️ Configuration
 
+ActiveSecurity is configured per model with `active_security`. The default is the
+`:restricted` feature; additional features include `:privileged`, `:finders`, and
+`:scoped`. Use `ActiveSecurity.defaults` to establish defaults for every model,
+then override them on individual models when necessary.
+
 ## 🔧 Basic Usage
+
+Include the module in an ActiveRecord model and select the protections it needs:
+
+```ruby
+class Restaurant < ActiveRecord::Base
+  extend ActiveSecurity
+  belongs_to :city
+
+  active_security use: :scoped, scope: :city
+end
+
+class City < ActiveRecord::Base
+  has_many :restaurants
+end
+
+city.restaurants.restricted.find(params[:id])
+```
+
+For applications that want the finder protections on every model, configure the
+defaults once during application boot:
+
+```ruby
+ActiveSecurity.defaults do |config|
+  config.use :restricted, :finders
+end
+```
 
 ## 🦷 FLOSS Funding
 
