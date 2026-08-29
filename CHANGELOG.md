@@ -48,11 +48,12 @@ Please file a bug if you notice a violation of semantic versioning.
   - dependencies (50)
   - other (3)
 
-- [kc] kettle-jem/template: updated 12 project files:
+- [kc] kettle-jem/template: updated 17 project files:
   - configuration (1)
-  - dependencies (5)
+  - dependencies (8)
   - documentation (1)
-  - other (5)
+  - other (6)
+  - workflows (1)
 
 ### Deprecated
 
