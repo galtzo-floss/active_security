@@ -1,7 +1,12 @@
 # frozen_string_literal: true
 
 # External Gems
-require "sqlite3"
+require "active_record"
+if RUBY_PLATFORM == "java"
+  require "activerecord-jdbcsqlite3-adapter"
+else
+  require "sqlite3"
+end
 require "anonymous_active_record"
 require "silent_stream"
 

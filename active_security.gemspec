@@ -168,6 +168,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency("rubocop-lts", "~> 18.2", ">= 18.2.1") # Linting for Ruby >= 2.7
   spec.add_development_dependency("rubocop-packaging", "~> 0.5", ">= 0.5.2")
   spec.add_development_dependency("silent_stream", "~> 1.0", ">= 1.0.8")
-  spec.add_development_dependency("sqlite3", ">= 1.6.9", "< 3")
   spec.add_development_dependency("yard", "~> 0.9", ">= 0.9.34")
 end

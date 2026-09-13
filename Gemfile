@@ -26,6 +26,7 @@ gem "nomono", "~> 1.1", ">= 1.1.5", require: false # ruby >= 3.2.0
 # Templating (env-switched: STRUCTUREDMERGE_DEV=/path/to/structuredmerge/ruby/gems for local paths)
 eval_gemfile "gemfiles/modular/templating.gemfile" if ENV.fetch("K_JEM_TEMPLATING", "false").casecmp("true").zero?
 # Default local test bundle
+eval_gemfile "gemfiles/modular/activerecord_support_modern.gemfile"
 gem "activerecord", "~> 8.1", ">= 8.1.2.1" # CVE: ActiveSupport SafeBuffer XSS / number helper DoS, fixed in 8.1.2.1
 
 # Debugging

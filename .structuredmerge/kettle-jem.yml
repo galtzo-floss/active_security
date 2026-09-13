@@ -260,6 +260,8 @@ workflows:
   #   gemfile_pattern: "ar-{version}.x"
 
 test_bundle:
+  gemfiles:
+    - gemfiles/modular/activerecord_support_modern.gemfile
   gems:
     - name: activerecord
       requirement: ["~> 8.1", ">= 8.1.2.1"]
