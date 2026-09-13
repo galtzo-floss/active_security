@@ -1,6 +1,4 @@
 module ActiveSecurity
-  # @guide begin
-  #
   # ## Setting Up ActiveSecurity in Your Model
   #
   # To use ActiveSecurity in your ActiveRecord models, you must first either extend or
@@ -50,8 +48,6 @@ module ActiveSecurity
   #     User.find(1)                        # blows up, because no scope
   #     User.where(...).find(1)             # returns the user
   #     User.where(...).restricted.find(1)  # also returns the user
-  #
-  # @guide end
   module Base
     # Configure ActiveSecurity's behavior in a model.
     #

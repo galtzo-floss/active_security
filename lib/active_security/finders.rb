@@ -1,6 +1,4 @@
 module ActiveSecurity
-  # @guide begin
-  #
   # ## Performing Finds with ActiveSecurity
   #
   # ActiveSecurity offers enhanced finders which will search for your record while
@@ -55,8 +53,6 @@ module ActiveSecurity
   #         scoped_collection.restricted.find(params[:id])
   #       end
   #     end
-  #
-  # @guide end
   module Finders
     class << self
       # ActiveSecurity::Config.use will invoke this method when present, to allow
