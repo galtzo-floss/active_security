@@ -101,6 +101,11 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Security
 
+- Raised the `activerecord` floor to `~> 7.1.5, >= 7.1.5.2` in the main Gemfile
+  and the `rails-7-1` appraisal. The prior `~> 7.1.3.2` pin only permitted
+  vulnerable patch releases affected by a moderate-severity ANSI escape
+  injection advisory in Active Record logging, fixed upstream in 7.1.5.2.
+
 ## [1.0.1] - 2024-07-05 (tag)
 ### Added
 - Documentation

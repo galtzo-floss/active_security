@@ -117,7 +117,7 @@ appraise "rails-7-0" do
 end
 
 appraise "rails-7-1" do
-  gem "activerecord", "~> 7.1.3.2"
+  gem "activerecord", "~> 7.1.5", ">= 7.1.5.2" # CVE: ANSI escape injection in AR logging, fixed in 7.1.5.2
   gem "debug", ">= 1.1"
   eval_gemfile "modular/x_std_libs/r4/libs.gemfile"
   #   gem "rspec-rails", "~> 6.0" # For Rails 6.1 & Rails 7.0 - 7.1
