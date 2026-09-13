@@ -66,21 +66,26 @@ end
 
 appraise "ruby-2-7" do
   eval_gemfile "modular/x_std_libs/r2/libs.gemfile"
+  eval_gemfile "modular/json/v2.gemfile"
 end
 
 appraise "ruby-3-0" do
   eval_gemfile "modular/json/truffleruby_22_3.gemfile"
   eval_gemfile "modular/json/truffleruby_23_0.gemfile"
   eval_gemfile "modular/x_std_libs/r3.1/libs.gemfile"
+  eval_gemfile "modular/json/v2.gemfile"
 end
 
 appraise "ruby-3-1" do
   eval_gemfile "modular/x_std_libs/r3.1/libs.gemfile"
+  eval_gemfile "modular/json/v2.gemfile"
 end
 
 appraise "ruby-3-2" do
   eval_gemfile "modular/json/truffleruby_23_1.gemfile"
   eval_gemfile "modular/x_std_libs/r3/libs.gemfile"
+  eval_gemfile "modular/activesupport/truffleruby_23_1.gemfile"
+  eval_gemfile "modular/minitest/truffleruby_23_1.gemfile"
 end
 
 appraise "ruby-3-3" do
@@ -114,6 +119,7 @@ end
 appraise "rails-7-0" do
   gem "activerecord", "~> 7.0.8.1"
   #   gem "rspec-rails", "~> 6.0" # For Rails 6.1 & Rails 7.0 - 7.1
+  eval_gemfile "modular/json/v2.gemfile"
 end
 
 appraise "rails-7-1" do
@@ -121,4 +127,5 @@ appraise "rails-7-1" do
   gem "debug", ">= 1.1"
   eval_gemfile "modular/x_std_libs/r4/libs.gemfile"
   #   gem "rspec-rails", "~> 6.0" # For Rails 6.1 & Rails 7.0 - 7.1
+  eval_gemfile "modular/json/v2.gemfile"
 end
