@@ -7,3 +7,5 @@ gemspec path: "../"
 eval_gemfile("modular/runtime_heads.gemfile")
 
 eval_gemfile("modular/activerecord_support_modern.gemfile")
+
+eval_gemfile("modular/json/v2.gemfile")

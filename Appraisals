@@ -56,16 +56,19 @@ end
 appraise "head" do
   eval_gemfile "modular/x_std_libs.gemfile"
   eval_gemfile "modular/activerecord_support_modern.gemfile"
+  eval_gemfile "modular/json/v2.gemfile"
 end
 
 appraise "current" do
   eval_gemfile "modular/x_std_libs.gemfile"
   eval_gemfile "modular/activerecord_support_modern.gemfile"
+  eval_gemfile "modular/json/v2.gemfile"
 end
 
 appraise "dep-heads" do
   eval_gemfile "modular/runtime_heads.gemfile"
   eval_gemfile "modular/activerecord_support_modern.gemfile"
+  eval_gemfile "modular/json/v2.gemfile"
 end
 
 appraise "ruby-2-7" do
@@ -104,6 +107,7 @@ end
 appraise "ruby-3-4" do
   eval_gemfile "modular/x_std_libs/r3/libs.gemfile"
   eval_gemfile "modular/activerecord_support_modern.gemfile"
+  eval_gemfile "modular/json/v2.gemfile"
 end
 
 appraise "audit" do
