@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Module: ActiveSecurity::Base
+  
+    &mdash; Documentation by YARD 0.9.45
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css">
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css">
+
+<script type="text/javascript">
+  pathId = "ActiveSecurity::Base";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="main_progress" aria-hidden="true"></div>
+
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (B)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../ActiveSecurity.html" title="ActiveSecurity (module)">ActiveSecurity</a></span></span>
+     &raquo; 
+    <span class="title">Base</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Module: ActiveSecurity::Base
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/active_security/base.rb
+</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <h2 id="setting-up-activesecurity-in-your-model">Setting Up ActiveSecurity in Your Model</h2>
+
+<p>To use ActiveSecurity in your ActiveRecord models, you must first either extend or<br />
+include the ActiveSecurity module (it makes no difference), then invoke the<br />
+<span class='object_link'><a href="#active_security-instance_method" title="ActiveSecurity::Base#active_security (method)">active_security</a></span> method to configure your desired<br />
+options:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='kw'>class</span> <span class='const'>Foo</span> <span class='op'>&lt;</span> <span class='const'>ActiveRecord</span><span class='op'>::</span><span class='const'>Base</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../ActiveSecurity.html" title="ActiveSecurity (module)">ActiveSecurity</a></span></span>
+  <span class='id identifier rubyid_active_security'>active_security</span> <span class='symbol'>:use</span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span><span class='label'>finders:</span> <span class='lbrace'>{</span><span class='label'>default_finders:</span> <span class='symbol'>:restricted</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='label'>scoped:</span> <span class='lbrace'>{</span><span class='label'>scope:</span> <span class='symbol'>:bar_id</span><span class='rbrace'>}</span><span class='rbrace'>}</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>The most important option is <code>:use</code>, which you use to tell ActiveSecurity which<br />
+addons it should use. See the documentation for <span class='object_link'><a href="#active_security-instance_method" title="ActiveSecurity::Base#active_security (method)">#active_security</a></span> for a list of all<br />
+available addons, or skim through the rest of the docs to get a high-level<br />
+overview.</p>
+
+<p><em>A note about single table inheritance (STI): you must extend ActiveSecurity in</em><br />
+<em>all classes that participate in STI, both your parent classes and their</em><br />
+<em>children.</em></p>
+
+<h3 id="the-basic-setup-simple-models">The Basic Setup: Simple Models</h3>
+
+<p>By default the <code>:restricted</code> plugin is the only one configured, and the <code>restricted</code><br />
+scope must be explicitly added to every query.<br />
+This is the simplest way to use ActiveSecurity.  But it is messy, and laborious.<br />
+It will ensure that finds are executed within a <code>where</code> scope:</p>
+
+<pre class="code ruby"><code class="ruby">class User &lt; ActiveRecord::Base
+  extend ActiveSecurity
+end
+
+User.restricted.find(1)             # blows up, because no scope
+User.where(...).restricted.find(1)  # returns the user
+</code></pre>
+
+<h3 id="the-strict-setup-magic-finders">The Strict Setup: Magic Finders</h3>
+
+<p>The problem with the above approach is that a naked find (<code>User.find(1)</code>)<br />
+still works, and is just as insecure as before. The <code>:finders</code> plugin fixes<br />
+this problem, so you don’t need to add <code>restricted</code> everywhere.</p>
+
+<pre class="code ruby"><code class="ruby">class User &lt; ActiveRecord::Base
+  extend ActiveSecurity
+  active_security use: {finders: {default_finders: :restricted}}
+end
+
+User.find(1)                        # blows up, because no scope
+User.where(...).find(1)             # returns the user
+User.where(...).restricted.find(1)  # also returns the user
+</code></pre>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#active_security-instance_method" title="#active_security (instance method)">#<strong>active_security</strong>(options = {}) {|config| ... } &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Configure ActiveSecurity’s behavior in a model.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#active_security_config-instance_method" title="#active_security_config (instance method)">#<strong>active_security_config</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the model class’s <span class='object_link'><a href="Configuration.html" title="ActiveSecurity::Configuration (class)">active_security_config</a></span>.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+    
+  
+
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="active_security-instance_method">
+  
+    #<strong>active_security</strong>(options = {}) {|config| ... } &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Configure ActiveSecurity’s behavior in a model.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='kw'>class</span> <span class='const'>Post</span> <span class='op'>&lt;</span> <span class='const'>ActiveRecord</span><span class='op'>::</span><span class='const'>Base</span>
+  <span class='id identifier rubyid_extend'>extend</span> <span class='const'><span class='object_link'><a href="../ActiveSecurity.html" title="ActiveSecurity (module)">ActiveSecurity</a></span></span>
+  <span class='id identifier rubyid_active_security'>active_security</span> <span class='label'>use:</span> <span class='symbol'>:finders</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>When given the optional block, this method will yield the class’s instance<br />
+of {ActiveSecurity::Configuration} to the block before evaluating other<br />
+arguments, so configuration values set in the block may be overwritten by<br />
+the arguments. This order was chosen to allow passing the same proc to<br />
+multiple models, while being able to override the values it sets. Here is<br />
+a contrived example:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='gvar'>$active_security_config_proc</span> <span class='op'>=</span> <span class='const'>Proc</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_config'>config</span><span class='op'>|</span>
+  <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_use'>use</span> <span class='symbol'>:finders</span>
+<span class='kw'>end</span>
+
+<span class='kw'>class</span> <span class='const'>Foo</span> <span class='op'>&lt;</span> <span class='const'>ActiveRecord</span><span class='op'>::</span><span class='const'>Base</span>
+  <span class='id identifier rubyid_extend'>extend</span> <span class='const'><span class='object_link'><a href="../ActiveSecurity.html" title="ActiveSecurity (module)">ActiveSecurity</a></span></span>
+  <span class='id identifier rubyid_active_security'>active_security</span> <span class='op'>&amp;</span><span class='gvar'>$active_security_config_proc</span>
+<span class='kw'>end</span>
+
+<span class='kw'>class</span> <span class='const'>Bar</span> <span class='op'>&lt;</span> <span class='const'>ActiveRecord</span><span class='op'>::</span><span class='const'>Base</span>
+  <span class='id identifier rubyid_extend'>extend</span> <span class='const'><span class='object_link'><a href="../ActiveSecurity.html" title="ActiveSecurity (module)">ActiveSecurity</a></span></span>
+  <span class='id identifier rubyid_active_security'>active_security</span> <span class='op'>&amp;</span><span class='gvar'>$active_security_config_proc</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>However, it’s usually better to use <span class='object_link'><a href="../ActiveSecurity.html#defaults-class_method" title="ActiveSecurity.defaults (method)">ActiveSecurity.defaults</a></span> for this:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="../ActiveSecurity.html" title="ActiveSecurity (module)">ActiveSecurity</a></span></span><span class='period'>.</span><span class='id identifier rubyid_defaults'><span class='object_link'><a href="../ActiveSecurity.html#defaults-class_method" title="ActiveSecurity.defaults (method)">defaults</a></span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_config'>config</span><span class='op'>|</span>
+  <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_use'>use</span> <span class='symbol'>:finders</span><span class='comma'>,</span> <span class='label'>default_finders:</span> <span class='symbol'>:restricted</span>
+<span class='kw'>end</span>
+
+<span class='kw'>class</span> <span class='const'>Foo</span> <span class='op'>&lt;</span> <span class='const'>ActiveRecord</span><span class='op'>::</span><span class='const'>Base</span>
+  <span class='id identifier rubyid_extend'>extend</span> <span class='const'><span class='object_link'><a href="../ActiveSecurity.html" title="ActiveSecurity (module)">ActiveSecurity</a></span></span>
+<span class='kw'>end</span>
+
+<span class='kw'>class</span> <span class='const'>Bar</span> <span class='op'>&lt;</span> <span class='const'>ActiveRecord</span><span class='op'>::</span><span class='const'>Base</span>
+  <span class='id identifier rubyid_extend'>extend</span> <span class='const'><span class='object_link'><a href="../ActiveSecurity.html" title="ActiveSecurity (module)">ActiveSecurity</a></span></span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>In general you should use the block syntax either because of your personal<br />
+aesthetic preference, or because you need to share some functionality<br />
+between multiple models that can’t be well encapsulated by<br />
+<span class='object_link'><a href="../ActiveSecurity.html#defaults-class_method" title="ActiveSecurity.defaults (method)">ActiveSecurity.defaults</a></span>.</p>
+
+<h3 id="order-method-calls-in-a-block-vs-ordering-options">Order Method Calls in a Block vs Ordering Options</h3>
+
+<p>When calling this method without a block, you may set the hash options in<br />
+any order, so long as they either have no dependencies, or are coupled with<br />
+their respective module.</p>
+
+<p>Here’s an example that configures every plugin:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='kw'>class</span> <span class='const'>Person</span> <span class='op'>&lt;</span> <span class='const'>ActiveRecord</span><span class='op'>::</span><span class='const'>Base</span>
+  <span class='id identifier rubyid_active_security'>active_security</span> <span class='label'>use:</span> <span class='lbrace'>{</span>
+    <span class='label'>finders:</span> <span class='lbrace'>{</span><span class='label'>default_finders:</span> <span class='symbol'>:restricted</span><span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>scoped:</span> <span class='lbrace'>{</span><span class='label'>scope:</span> <span class='symbol'>:name</span><span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>privileged:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='rbrace'>}</span>
+<span class='kw'>end</span>
+
+<span class='const'>Person</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>                                 <span class='comment'># blows up, because no scope
+</span><span class='const'>Person</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Bart</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>             <span class='comment'># returns the person
+</span><span class='const'>Person</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>age:</span> <span class='int'>29</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>                  <span class='comment'># blows up, because name scope wasn&#39;t used
+</span><span class='const'>Person</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>age:</span> <span class='int'>29</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_privileged'>privileged</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>       <span class='comment'># returns the person, because privileged
+</span><span class='const'>Person</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Bart</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_restricted'>restricted</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>  <span class='comment'># also returns the person, because name scope used
+</span></code></pre>
+
+<p>However, when using block-style invocation, be sure to call<br />
+ActiveSecurity::Configuration’s <span class='object_link'><a href="Configuration.html#use-instance_method" title="ActiveSecurity::Configuration#use (method)">use</a></span> method<br />
+<em>prior</em> to the associated configuration options, because it will include<br />
+modules into your class, and these modules in turn may add required<br />
+configuration options to the <code>@active_security_configuration</code>’s class:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='kw'>class</span> <span class='const'>Person</span> <span class='op'>&lt;</span> <span class='const'>ActiveRecord</span><span class='op'>::</span><span class='const'>Base</span>
+  <span class='id identifier rubyid_active_security'>active_security</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_config'>config</span><span class='op'>|</span>
+    <span class='comment'># This will work
+</span>    <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_use'>use</span> <span class='symbol'>:scoped</span>
+    <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_scope'>scope</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>family_id</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+
+<span class='kw'>class</span> <span class='const'>Person</span> <span class='op'>&lt;</span> <span class='const'>ActiveRecord</span><span class='op'>::</span><span class='const'>Base</span>
+  <span class='id identifier rubyid_active_security'>active_security</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_config'>config</span><span class='op'>|</span>
+    <span class='comment'># This will fail
+</span>    <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_scope'>scope</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>family_id</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_use'>use</span> <span class='symbol'>:scoped</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<h3 id="including-your-own-modules">Including Your Own Modules</h3>
+
+<p>Because :use can accept a name or a Module, <span class='object_link'><a href="../ActiveSecurity.html#defaults-class_method" title="ActiveSecurity.defaults (method)">defaults</a></span><br />
+can be a convenient place to set up behavior common to all classes using<br />
+ActiveSecurity. You can include any module, or more conveniently, define one<br />
+on-the-fly. For example, let’s say you want to globally override the error<br />
+that is raised when no scope is used:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="../ActiveSecurity.html" title="ActiveSecurity (module)">ActiveSecurity</a></span></span><span class='period'>.</span><span class='id identifier rubyid_defaults'><span class='object_link'><a href="../ActiveSecurity.html#defaults-class_method" title="ActiveSecurity.defaults (method)">defaults</a></span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_config'>config</span><span class='op'>|</span>
+  <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_use'>use</span> <span class='symbol'>:finders</span>
+  <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_use'>use</span> <span class='const'>Module</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='lbrace'>{</span>
+    <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup'>setup</span><span class='lparen'>(</span><span class='id identifier rubyid_model_class'>model_class</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_model_class'>model_class</span><span class='period'>.</span><span class='id identifier rubyid_instance_eval'>instance_eval</span> <span class='kw'>do</span>
+        <span class='id identifier rubyid_relation'>relation</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='symbol'>:prepend</span><span class='comma'>,</span> <span class='const'>RaiseOverride</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_model_class'>model_class</span><span class='period'>.</span><span class='id identifier rubyid_singleton_class'>singleton_class</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='symbol'>:prepend</span><span class='comma'>,</span> <span class='const'>RaiseOverride</span><span class='rparen'>)</span>
+      <span class='kw'>end</span>
+
+      <span class='id identifier rubyid_association_relation_delegate_class'>association_relation_delegate_class</span> <span class='op'>=</span> <span class='id identifier rubyid_model_class'>model_class</span><span class='period'>.</span><span class='id identifier rubyid_relation_delegate_class'>relation_delegate_class</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>ActiveRecord</span><span class='op'>::</span><span class='const'>AssociationRelation</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_association_relation_delegate_class'>association_relation_delegate_class</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='symbol'>:prepend</span><span class='comma'>,</span> <span class='const'>RaiseOverride</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+    <span class='kw'>module</span> <span class='const'>RaiseOverride</span>
+      <span class='kw'>def</span> <span class='id identifier rubyid_raise_if_not_scoped'>raise_if_not_scoped</span>
+        <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>My errors are better than yours</span><span class='tstring_end'>&quot;</span></span>
+        <span class='id identifier rubyid_raise'>raise</span> <span class='const'>StandardError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Calm Down</span><span class='tstring_end'>&quot;</span></span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+  <span class='rbrace'>}</span>
+<span class='kw'>end</span>
+</code></pre>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>a customizable set of options</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    <p class="tag_title">Options Hash (<tt>options</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:use</span>
+          <span class="type">(<tt>Symbol</tt>, <tt>Module</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>The addon or name of an addon to use.<br />
+By default, ActiveSecurity provides <span class='object_link'><a href="Finders.html" title="ActiveSecurity::Finders (module)">:finders</a></span>,<br />
+<span class='object_link'><a href="Restricted.html" title="ActiveSecurity::Restricted (module)">:restricted</a></span>, <span class='object_link'><a href="Privileged.html" title="ActiveSecurity::Privileged (module)">:privileged</a></span>,<br />
+and <span class='object_link'><a href="Scoped.html" title="ActiveSecurity::Scoped (module)">:scoped</a></span>, or a hash where the keys are the symbolized<br />
+module names just mentioned, and the values are hashes of options to set for each<br />
+module.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:scope</span>
+          <span class="type">(<tt>Symbol</tt>, <tt>Array[Symbol]</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Available when using <code>:scoped</code>.<br />
+Sets the relation(s) or column(s) which will be considered a required scope.<br />
+This option has no default value.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:default_finders</span>
+          <span class="type">(<tt>Symbol</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Available when using <code>:finders</code>.<br />
+Sets the type of scope enforcement to use. Must be one of :restricted or<br />
+:privileged. Default value is :restricted.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:privileged_hooks</span>
+          <span class="type">(<tt>Module</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Available when using <code>:privileged</code>.<br />
+Sets the Module which defines the necessary hooks for the Privileged behavior.<br />
+Default value is {ActiveSecurity::PrivilegedHooks}</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:restricted_hooks</span>
+          <span class="type">(<tt>Module</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Available when using <code>:restricted</code>.<br />
+Sets the Module which defines the necessary hooks for the Restricted behavior.<br />
+Default value is {ActiveSecurity::RestrictedHooks}</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:on_restricted_no_scope</span>
+          <span class="type">(<tt>Symbol</tt>, <tt>#call</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Available when using <code>:restricted</code>.<br />
+Sets the Restricted behavior when the expected scope is not found. Must be one of<br />
+the following [#call, :log, :log_and_raise, :raise].<br />
+Default value is :log_and_raise.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:on_restricted_unhandled_predicate</span>
+          <span class="type">(<tt>Symbol</tt>, <tt>#call</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Available when using <code>:restricted</code>.<br />
+Sets the Restricted behavior when the scopes Arel Node has no defined handling. Must be one of<br />
+the following [#call, :log, :log_and_raise, :raise].<br />
+Default value is :log_and_raise.</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Yields:</p>
+<ul class="yield">
+  
+    <li>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        
+        <div class='inline'><p>Provides access to the model class’s active_security_config, which<br />
+allows an alternate configuration syntax, and conditional configuration<br />
+logic.</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Yield Parameters:</p>
+<ul class="yieldparam">
+  
+    <li>
+      
+        <span class='name'>config</span>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The model class’s <span class='object_link'><a href="Configuration.html" title="ActiveSecurity::Configuration (class)">active_security_config</a></span>.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/active_security/base.rb', line 211</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_active_security'>active_security</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='kw'>yield</span> <span class='id identifier rubyid_active_security_config'>active_security_config</span> <span class='kw'>if</span> <span class='id identifier rubyid_block'>block</span>
+  <span class='id identifier rubyid_use_mods'>use_mods</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:use</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_use_mods'>use_mods</span>
+    <span class='id identifier rubyid_active_security_config'>active_security_config</span><span class='period'>.</span><span class='id identifier rubyid_use'>use</span><span class='lparen'>(</span><span class='id identifier rubyid_use_mods'>use_mods</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_config'>config</span><span class='op'>|</span>
+      <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='symbol'>:set</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_active_security_config'>active_security_config</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='symbol'>:set</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="active_security_config-instance_method">
+  
+    #<strong>active_security_config</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'><p>In the case of Single Table Inheritance (STI), this method will<br />
+duplicate the parent class’s ActiveSecurity::Configuration and relation class<br />
+on first access. If you’re concerned about thread safety, then be sure<br />
+to invoke <span class='object_link'><a href="#active_security-instance_method" title="ActiveSecurity::Base#active_security (method)">#active_security</a></span> in your class for each model.</p>
+</div>
+  </div>
+
+<p>Returns the model class’s <span class='object_link'><a href="Configuration.html" title="ActiveSecurity::Configuration (class)">active_security_config</a></span>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+228
+229
+230
+231
+232</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/active_security/base.rb', line 228</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_active_security_config'>active_security_config</span>
+  <span class='ivar'>@active_security_config</span> <span class='op'>||=</span> <span class='id identifier rubyid_base_class'>base_class</span><span class='period'>.</span><span class='id identifier rubyid_active_security_config'>active_security_config</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span><span class='period'>.</span><span class='id identifier rubyid_tap'>tap</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_config'>config</span><span class='op'>|</span>
+    <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_model_class'>model_class</span> <span class='op'>=</span> <span class='kw'>self</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Sun Sep 13 18:48:56 2026 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.45 (ruby-4.0.6).
+</div>
+
+    </div>
+  </body>
+</html>

@@ -8,7 +8,6 @@
 
 source "https://gem.coop"
 
-git_source(:github) { |repo_name| "git@github.com:#{repo_name}.git" }
 git_source(:codeberg) { |repo_name| "https://codeberg.org/#{repo_name}" }
 git_source(:gitlab) { |repo_name| "https://gitlab.com/#{repo_name}" }
 
@@ -27,7 +26,8 @@ gem "nomono", "~> 1.1", ">= 1.1.5", require: false # ruby >= 3.2.0
 # Templating (env-switched: STRUCTUREDMERGE_DEV=/path/to/structuredmerge/ruby/gems for local paths)
 eval_gemfile "gemfiles/modular/templating.gemfile" if ENV.fetch("K_JEM_TEMPLATING", "false").casecmp("true").zero?
 # Default local test bundle
-gem "activerecord", "~> 7.1.5", ">= 7.1.5.2" # CVE: ANSI escape injection in AR logging, fixed in 7.1.5.2
+eval_gemfile "gemfiles/modular/activerecord_support_modern.gemfile"
+gem "activerecord", "~> 8.1", ">= 8.1.2.1" # CVE: ActiveSupport SafeBuffer XSS / number helper DoS, fixed in 8.1.2.1
 
 # Debugging
 eval_gemfile "gemfiles/modular/debug.gemfile"

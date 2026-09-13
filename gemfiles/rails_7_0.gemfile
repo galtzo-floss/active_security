@@ -5,3 +5,5 @@ source "https://gem.coop"
 gem "activerecord", "~> 7.0.8.1"
 
 gemspec path: "../"
+
+eval_gemfile("modular/json/v2.gemfile")

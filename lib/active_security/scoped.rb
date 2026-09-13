@@ -1,6 +1,4 @@
 module ActiveSecurity
-  # @guide begin
-  #
   # ## Required Scope
   #
   # The {ActiveSecurity::Scoped} module allows ActiveSecurity to enforce querying
@@ -54,8 +52,6 @@ module ActiveSecurity
   # Alternatively, you could pass the scope value as a query parameter:
   #
   #     Restaurant.where(city_id: @city.id).restricted.find(23)
-  #
-  # @guide end
   module Scoped
     class << self
       # Sets up behavior and configuration options for scoped feature.
