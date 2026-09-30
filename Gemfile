@@ -27,7 +27,7 @@ gem "nomono", "~> 1.1", ">= 1.1.6", require: false # ruby >= 3.2.0
 eval_gemfile "gemfiles/modular/templating.gemfile" if ENV.fetch("K_JEM_TEMPLATING", "false").casecmp("true").zero?
 # Default local test bundle
 eval_gemfile "gemfiles/modular/activerecord_support_modern.gemfile"
-gem "activerecord", "~> 8.1", ">= 8.1.2.1" # CVE: ActiveSupport SafeBuffer XSS / number helper DoS, fixed in 8.1.2.1
+gem "activerecord", "~> 8.1", ">= 8.1.2.1"
 
 # Debugging
 eval_gemfile "gemfiles/modular/debug.gemfile"
