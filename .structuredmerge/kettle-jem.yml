@@ -264,7 +264,7 @@ test_bundle:
     - gemfiles/modular/activerecord_support_modern.gemfile
   gems:
     - name: activerecord
-      requirement: ["~> 8.1", ">= 8.1.2.1"]
+      requirements: ["~> 8.1", ">= 8.1.2.1"]
 
 # Project-level third-party integrations.
 # Disabling an integration removes its upload/check action, suppresses its
