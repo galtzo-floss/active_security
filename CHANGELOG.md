@@ -20,6 +20,25 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Added
 
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [1.0.2] - 2026-10-01
+
+- TAG: [v1.0.2][1.0.2t]
+- COVERAGE: 94.83% -- 220/232 lines in 11 files
+- BRANCH COVERAGE: 83.33% -- 55/66 branches in 11 files
+- 71.19% documented
+
+### Added
+
 - kettle-jem-template-20260720-005 - README Support & Community links now
   include RubyForum.
 - kettle-jem-template-20260726-001 - Projects now include YARD lint
@@ -58,10 +77,6 @@ Please file a bug if you notice a violation of semantic versioning.
   - dependencies (5)
   - other (2)
   - workflows (25)
-
-### Deprecated
-
-### Removed
 
 ### Fixed
 
@@ -116,14 +131,24 @@ Please file a bug if you notice a violation of semantic versioning.
   injection advisory in Active Record logging, fixed upstream in 7.1.5.2.
 
 ## [1.0.1] - 2024-07-05 (tag)
+
+- TAG: [v1.0.1][1.0.1t]
+
 ### Added
+
 - Documentation
 
 ## [1.0.0] - 2024-07-05 (tag)
+
+- TAG: [v1.0.0][1.0.0t]
+
 ### Added
+
 - Initial release
 
-[Unreleased]: https://github.com/pboling/sanitize_email/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/galtzo-floss/active_security/compare/v1.0.2...HEAD
+[1.0.2]: https://github.com/galtzo-floss/active_security/compare/v1.0.1...v1.0.2
+[1.0.2t]: https://github.com/galtzo-floss/active_security/releases/tag/v1.0.2
 [1.0.1]: https://github.com/pboling/sanitize_email/compare/v1.0.0...v1.0.1
 [1.0.1t]: https://github.com/pboling/sanitize_email/tags/v1.0.1
 [1.0.0]: https://github.com/pboling/sanitize_email/compare/9caac884909193326b3f3318ad3db00ca754fabd...v1.0.0

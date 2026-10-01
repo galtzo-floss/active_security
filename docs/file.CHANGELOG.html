@@ -70,9 +70,32 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 and <a href="https://tom.preston-werner.com/2022/05/23/major-version-numbers-are-not-sacred.html">yes</a>, platform and engine support are part of the <a href="https://github.com/semver/semver/issues/716#issuecomment-869336139">public API</a>.<br>
 Please file a bug if you notice a violation of semantic versioning.</p>
 
-<h2 id="unreleased"><a href="https://github.com/pboling/sanitize_email/compare/v1.0.1...HEAD">Unreleased</a></h2>
+<h2 id="unreleased"><a href="https://github.com/galtzo-floss/active_security/compare/v1.0.2...HEAD">Unreleased</a></h2>
 
 <h3 id="added">Added</h3>
+
+<h3 id="changed">Changed</h3>
+
+<h3 id="deprecated">Deprecated</h3>
+
+<h3 id="removed">Removed</h3>
+
+<h3 id="fixed">Fixed</h3>
+
+<h3 id="security">Security</h3>
+
+<h2 id="102---2026-10-01">
+<a href="https://github.com/galtzo-floss/active_security/compare/v1.0.1...v1.0.2">1.0.2</a> - 2026-10-01</h2>
+
+<ul>
+  <li>TAG: <a href="https://github.com/galtzo-floss/active_security/releases/tag/v1.0.2">v1.0.2</a>
+</li>
+  <li>COVERAGE: 94.83% – 220/232 lines in 11 files</li>
+  <li>BRANCH COVERAGE: 83.33% – 55/66 branches in 11 files</li>
+  <li>71.19% documented</li>
+</ul>
+
+<h3 id="added-1">Added</h3>
 
 <ul>
   <li>kettle-jem-template-20260720-005 - README Support &amp; Community links now<br>
@@ -80,11 +103,19 @@ include RubyForum.</li>
   <li>kettle-jem-template-20260726-001 - Projects now include YARD lint<br>
 configuration and documentation dependencies so documentation issues fail<br>
 before generated docs are refreshed.</li>
-  <li>kettle-jem-template-20260727-001 - Spec harness documentation now lists the<br>
-RSpec helpers provided by <code>kettle-test</code>.</li>
+  <li>
+    <p>kettle-jem-template-20260727-001 - Spec harness documentation now lists the<br>
+RSpec helpers provided by <code>kettle-test</code>.</p>
+  </li>
+  <li>kettle-jem-template-20260913-001 - Templating now also surfaces a review<br>
+entry in <code>dependency_conflicts.resolve</code> when a direct development<br>
+dependency doesn’t support one or more of this project’s declared<br>
+<code>engines:</code> and has no template-managed modular home (e.g. <code>sqlite3</code> on<br>
+<code>jruby</code>). Review each entry and pick a resolution per the project’s own<br>
+engine support needs.</li>
 </ul>
 
-<h3 id="changed">Changed</h3>
+<h3 id="changed-1">Changed</h3>
 
 <ul>
   <li>kettle-jem-template-20260716-002 - Gemspecs now ship fewer repository-only<br>
@@ -101,24 +132,22 @@ installing the main Gemfile bundle.</li>
     <p>kettle-jem-template-20260801-001 - Generated README gem dashboard links now<br>
 use ClickGems instead of BestGems.</p>
   </li>
-  <li>[kc] kettle-jem/prepare: updated 9 project files:
+  <li>[kc] kettle-jem/prepare: updated 10 project files:
     <ul>
-      <li>dependencies (9)</li>
+      <li>dependencies (10)</li>
     </ul>
   </li>
-  <li>[kc] kettle-jem/template: updated 4 project files:
+  <li>[kc] kettle-jem/template: updated 33 project files:
     <ul>
-      <li>dependencies (3)</li>
-      <li>other (1)</li>
+      <li>code and tests (1)</li>
+      <li>dependencies (5)</li>
+      <li>other (2)</li>
+      <li>workflows (25)</li>
     </ul>
   </li>
 </ul>
 
-<h3 id="deprecated">Deprecated</h3>
-
-<h3 id="removed">Removed</h3>
-
-<h3 id="fixed">Fixed</h3>
+<h3 id="fixed-1">Fixed</h3>
 
 <ul>
   <li>kettle-jem-template-20260720-003 - StructuredMerge Git diff driver config now<br>
@@ -168,7 +197,7 @@ preserving comments and trailing commas during template updates.</p>
   <li>Restore the default ActiveRecord test matrix removed by an earlier template pass.</li>
 </ul>
 
-<h3 id="security">Security</h3>
+<h3 id="security-1">Security</h3>
 
 <ul>
   <li>Raised the <code>activerecord</code> floor to <code>~&gt; 7.1.5, &gt;= 7.1.5.2</code> in the main Gemfile<br>
@@ -179,14 +208,28 @@ injection advisory in Active Record logging, fixed upstream in 7.1.5.2.</li>
 
 <h2 id="101---2024-07-05-tag">
 <a href="https://github.com/pboling/sanitize_email/compare/v1.0.0...v1.0.1">1.0.1</a> - 2024-07-05 (tag)</h2>
-<h3 id="added-1">Added</h3>
+
+<ul>
+  <li>TAG: <a href="https://github.com/pboling/sanitize_email/tags/v1.0.1">v1.0.1</a>
+</li>
+</ul>
+
+<h3 id="added-2">Added</h3>
+
 <ul>
   <li>Documentation</li>
 </ul>
 
 <h2 id="100---2024-07-05-tag">
 <a href="https://github.com/pboling/sanitize_email/compare/9caac884909193326b3f3318ad3db00ca754fabd...v1.0.0">1.0.0</a> - 2024-07-05 (tag)</h2>
-<h3 id="added-2">Added</h3>
+
+<ul>
+  <li>TAG: <a href="https://github.com/pboling/sanitize_email/tags/v1.0.0">v1.0.0</a>
+</li>
+</ul>
+
+<h3 id="added-3">Added</h3>
+
 <ul>
   <li>Initial release</li>
 </ul>
