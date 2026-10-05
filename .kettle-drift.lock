@@ -1,19 +1,19 @@
 {
+  "- gem: rubocop-packaging\ndirect: active_security.gemspec": [
+    {
+      "file": ".structuredmerge/kettle-jem.yml",
+      "lines": [
+        114,
+        119
+      ]
+    }
+  ],
   "action: remove_modular_gem\nreason: \"The gemspec owns the project's documentation dependency.\"": [
     {
       "file": ".structuredmerge/kettle-jem.yml",
       "lines": [
-        122,
-        127
-      ]
-    }
-  ],
-  "action: remove_modular_gem\nreason: \"The gemspec owns the project's style dependency.\"": [
-    {
-      "file": ".structuredmerge/kettle-jem.yml",
-      "lines": [
-        112,
-        117
+        127,
+        132
       ]
     }
   ],
@@ -21,8 +21,8 @@
     {
       "file": ".structuredmerge/kettle-jem.yml",
       "lines": [
-        120,
-        125
+        125,
+        130
       ]
     }
   ],
@@ -48,17 +48,8 @@
     {
       "file": ".structuredmerge/kettle-jem.yml",
       "lines": [
-        121,
-        126
-      ]
-    }
-  ],
-  "modular: gemfiles/modular/style.gemfile\naction: remove_modular_gem": [
-    {
-      "file": ".structuredmerge/kettle-jem.yml",
-      "lines": [
-        111,
-        116
+        126,
+        131
       ]
     }
   ]
