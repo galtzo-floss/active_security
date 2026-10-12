@@ -1,59 +1,21 @@
 {
-  "Rakefile:1014645787": [
-    [251, 3, 16, "Rake/DuplicateTask: Task `test` is defined at both Rakefile:244 and Rakefile:251.", 850263259],
-    [254, 3, 16, "Rake/DuplicateTask: Task `spec` is defined at both Rakefile:230 and Rakefile:254.", 2494909563]
-  ],
-  "active_security.gemspec:670306512": [
-    [54, 78, 4, "Lint/LtsRuby/UnavailableMethod: Symbol#name is unavailable before Ruby 3.0.", 2087876002],
-    [57, 71, 4, "Lint/LtsRuby/UnavailableMethod: Symbol#name is unavailable before Ruby 3.0.", 2087876002],
-    [95, 13, 4, "Lint/LtsRuby/UnavailableMethod: Symbol#name is unavailable before Ruby 3.0.", 2087876002]
-  ],
-  "gemfiles/modular/changelog.gemfile:285381723": [
-    [27, 29, 4, "Lint/LtsRuby/UnavailableMethod: Symbol#name is unavailable before Ruby 3.0.", 2087876002],
-    [31, 45, 4, "Lint/LtsRuby/UnavailableMethod: IO/SyntaxError#path is unavailable before Ruby 3.2.", 2088095368]
-  ],
-  "gemfiles/modular/coverage_local.gemfile:367561544": [
-    [19, 25, 4, "Lint/LtsRuby/UnavailableMethod: Symbol#name is unavailable before Ruby 3.0.", 2087876002],
-    [23, 41, 4, "Lint/LtsRuby/UnavailableMethod: IO/SyntaxError#path is unavailable before Ruby 3.2.", 2088095368],
-    [56, 101, 4, "Lint/LtsRuby/UnavailableMethod: Symbol#name is unavailable before Ruby 3.0.", 2087876002],
-    [63, 31, 4, "Lint/LtsRuby/UnavailableMethod: Symbol#name is unavailable before Ruby 3.0.", 2087876002]
-  ],
-  "gemfiles/modular/documentation_local.gemfile:1886495639": [
-    [19, 25, 4, "Lint/LtsRuby/UnavailableMethod: Symbol#name is unavailable before Ruby 3.0.", 2087876002],
-    [23, 41, 4, "Lint/LtsRuby/UnavailableMethod: IO/SyntaxError#path is unavailable before Ruby 3.2.", 2088095368]
-  ],
-  "gemfiles/modular/style_local.gemfile:2242147503": [
-    [22, 25, 4, "Lint/LtsRuby/UnavailableMethod: Symbol#name is unavailable before Ruby 3.0.", 2087876002],
-    [26, 41, 4, "Lint/LtsRuby/UnavailableMethod: IO/SyntaxError#path is unavailable before Ruby 3.2.", 2088095368]
-  ],
-  "gemfiles/modular/templating_local.gemfile:3802529708": [
-    [20, 25, 4, "Lint/LtsRuby/UnavailableMethod: Symbol#name is unavailable before Ruby 3.0.", 2087876002],
-    [24, 41, 4, "Lint/LtsRuby/UnavailableMethod: IO/SyntaxError#path is unavailable before Ruby 3.2.", 2088095368],
-    [105, 101, 4, "Lint/LtsRuby/UnavailableMethod: Symbol#name is unavailable before Ruby 3.0.", 2087876002],
-    [112, 31, 4, "Lint/LtsRuby/UnavailableMethod: Symbol#name is unavailable before Ruby 3.0.", 2087876002]
+  "Rakefile:3568909981": [
+    [257, 3, 16, "Rake/DuplicateTask: Task `test` is defined at both Rakefile:250 and Rakefile:257.", 850263259],
+    [260, 3, 16, "Rake/DuplicateTask: Task `spec` is defined at both Rakefile:236 and Rakefile:260.", 2494909563]
   ],
   "lib/active_security.rb:2323899519": [
     [56, 9, 23, "ThreadSafety/ClassInstanceVariable: Avoid class instance variables.", 4122870069],
+    [56, 70, 60, "Lint/CopDirectiveSyntax: Unknown cop name `ThreadSafety/InstanceVariableInClassMethod` (did you mean `ThreadSafety/ClassInstanceVariable`?).", 1761171450],
     [57, 38, 23, "ThreadSafety/ClassInstanceVariable: Avoid class instance variables.", 4122870069],
+    [57, 63, 60, "Lint/CopDirectiveSyntax: Unknown cop name `ThreadSafety/InstanceVariableInClassMethod` (did you mean `ThreadSafety/ClassInstanceVariable`?).", 1761171450],
     [76, 7, 9, "ThreadSafety/ClassInstanceVariable: Avoid class instance variables.", 3608934621],
+    [76, 34, 60, "Lint/CopDirectiveSyntax: Unknown cop name `ThreadSafety/InstanceVariableInClassMethod` (did you mean `ThreadSafety/ClassInstanceVariable`?).", 1761171450],
     [77, 7, 9, "ThreadSafety/ClassInstanceVariable: Avoid class instance variables.", 3608934621],
-    [85, 7, 9, "ThreadSafety/ClassInstanceVariable: Avoid class instance variables.", 3608934621]
-  ],
-  "lib/active_security/configuration.rb:3955496396": [
-    [49, 27, 7, "Lint/LtsRuby/UnavailableMethod: Enumerable/Enumerator::Lazy#compact is unavailable before Ruby 3.1.", 3711215938]
+    [77, 60, 60, "Lint/CopDirectiveSyntax: Unknown cop name `ThreadSafety/InstanceVariableInClassMethod` (did you mean `ThreadSafety/ClassInstanceVariable`?).", 1761171450],
+    [85, 7, 9, "ThreadSafety/ClassInstanceVariable: Avoid class instance variables.", 3608934621],
+    [85, 23, 60, "Lint/CopDirectiveSyntax: Unknown cop name `ThreadSafety/InstanceVariableInClassMethod` (did you mean `ThreadSafety/ClassInstanceVariable`?).", 1761171450]
   ],
   "lib/active_security/finder_methods.rb:2878731795": [
-    [45, 33, 4, "Lint/LtsRuby/UnavailableMethod: Symbol#name is unavailable before Ruby 3.0.", 2087876002],
-    [48, 29, 4, "Lint/LtsRuby/UnavailableMethod: Symbol#name is unavailable before Ruby 3.0.", 2087876002],
-    [60, 19, 21, "Style/ClassEqualityComparison: Use `instance_of?(::Class)` instead of comparing classes.", 4293252620],
-    [60, 25, 4, "Lint/LtsRuby/UnavailableMethod: Symbol#name is unavailable before Ruby 3.0.", 2087876002],
-    [60, 62, 4, "Lint/LtsRuby/UnavailableMethod: Symbol#name is unavailable before Ruby 3.0.", 2087876002]
-  ],
-  "lib/active_security/privileged_hooks.rb:1602083201": [
-    [10, 119, 4, "Lint/LtsRuby/UnavailableMethod: Symbol#name is unavailable before Ruby 3.0.", 2087876002]
-  ],
-  "lib/active_security/restricted_hooks.rb:2930892769": [
-    [31, 108, 4, "Lint/LtsRuby/UnavailableMethod: Symbol#name is unavailable before Ruby 3.0.", 2087876002],
-    [36, 74, 4, "Lint/LtsRuby/UnavailableMethod: Symbol#name is unavailable before Ruby 3.0.", 2087876002]
+    [60, 19, 21, "Style/ClassEqualityComparison: Use `instance_of?(::Class)` instead of comparing classes.", 4293252620]
   ]
 }
