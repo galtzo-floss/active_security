@@ -836,7 +836,7 @@ files:
     recipe: template_source_application_gemfiles_modular_documentation_gemfile
     action: write
     dest_sha256: ba636a66a78b4c43525f619a85f17b034695fc0a283446bfcc2fd269998c38ef
-    input_fingerprint: cb4c0e5862ed07667d7dd141a9c9b6b32894d063283c2cfc06b4422de97af1b6
+    input_fingerprint: 1d18af84e041c742faf743d20fb09ad20fddd003606b3c017dae16c64ef3b0c7
     template_sources:
     - gemfiles/modular/documentation.gemfile.example
   gemfiles/modular/documentation_local.gemfile:
