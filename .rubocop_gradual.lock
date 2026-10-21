@@ -3,6 +3,9 @@
     [257, 3, 16, "Rake/DuplicateTask: Task `test` is defined at both Rakefile:250 and Rakefile:257.", 850263259],
     [260, 3, 16, "Rake/DuplicateTask: Task `spec` is defined at both Rakefile:236 and Rakefile:260.", 2494909563]
   ],
+  "gemfiles/modular/style_local.gemfile:3010284027": [
+    [71, 23, 20, "Style/SafeNavigation: Use safe navigation (`&.`) instead of checking if an object exists before calling the method.", 1851388465]
+  ],
   "lib/active_security.rb:2323899519": [
     [56, 9, 23, "ThreadSafety/ClassInstanceVariable: Avoid class instance variables.", 4122870069],
     [56, 70, 60, "Lint/CopDirectiveSyntax: Unknown cop name `ThreadSafety/InstanceVariableInClassMethod` (did you mean `ThreadSafety/ClassInstanceVariable`?).", 1761171450],
