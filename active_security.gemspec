@@ -23,8 +23,8 @@ Gem::Specification.new do |spec|
   spec.authors = ["Peter H. Boling", "Annibelle Boling"]
   spec.email = ["floss@galtzo.com"]
 
-  spec.summary = "💎 Prevent insecure, unscoped, finds"
-  spec.description = "💎 Disallow insecure, unscoped, finds"
+  spec.summary = "🔒 Prevent insecure, unscoped, finds"
+  spec.description = "🔒 Disallow insecure, unscoped, finds"
   spec.homepage = "https://github.com/galtzo-floss/active_security"
   spec.licenses = ["MIT"]
   spec.required_ruby_version = ">= 2.7.0"
