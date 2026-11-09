@@ -26,11 +26,11 @@ Please file a bug if you notice a violation of semantic versioning.
   - configuration (2)
   - dependencies (18)
 
-- [kc] kettle-jem/template: updated 39 project files:
+- [kc] kettle-jem/template: updated 40 project files:
   - code and tests (1)
   - dependencies (8)
   - documentation (2)
-  - other (3)
+  - other (4)
   - workflows (25)
 
 ### Deprecated
