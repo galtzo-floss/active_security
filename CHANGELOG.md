@@ -22,17 +22,6 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Changed
 
-- [kc] kettle-jem/prepare: updated 27 project files:
-  - configuration (2)
-  - dependencies (25)
-
-- [kc] kettle-jem/template: updated 41 project files:
-  - code and tests (1)
-  - dependencies (9)
-  - documentation (2)
-  - other (4)
-  - workflows (25)
-
 ### Deprecated
 
 ### Removed
@@ -41,7 +30,7 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Security
 
-## [1.0.2] - 2026-10-01
+## [1.0.2] - 2026-11-17
 
 - TAG: [v1.0.2][1.0.2t]
 - COVERAGE: 94.83% -- 220/232 lines in 11 files
@@ -80,14 +69,15 @@ Please file a bug if you notice a violation of semantic versioning.
 - kettle-jem-template-20260801-001 - Generated README gem dashboard links now
   use ClickGems instead of BestGems.
 
-- [kc] kettle-jem/prepare: updated 10 project files:
-  - dependencies (10)
-
-- [kc] kettle-jem/template: updated 33 project files:
-  - code and tests (1)
-  - dependencies (5)
-  - other (2)
-  - workflows (25)
+- [kc] kettle-jem/prepare: updated 37 project files:
+  - configuration (2)
+  - dependencies (35)
+- [kc] kettle-jem/template: updated 74 project files:
+  - code and tests (2)
+  - dependencies (14)
+  - documentation (2)
+  - other (6)
+  - workflows (50)
 
 ### Fixed
 
